@@ -9,6 +9,7 @@ import ThemeCustomizer from '../components/ThemeCustomizer';
 import MoodTracker from '../components/MoodTracker';
 import FloatingActionButton from '../components/FloatingActionButton';
 import CollapsibleCard from '../components/CollapsibleCard';
+import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Lightbulb, ArrowRight, CalendarDays } from "lucide-react";
 
