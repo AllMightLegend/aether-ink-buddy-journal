@@ -137,6 +137,20 @@
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-in-out forwards;
+  }
+  
+  .animate-write {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: writeLine 2s ease-in-out forwards infinite;
+  }
+  
+  .animate-ping {
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
 }
 
 @keyframes fadeIn {
@@ -174,6 +188,36 @@
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes writeLine {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 50;
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
   }
 }
 
