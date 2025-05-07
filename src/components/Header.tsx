@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ModeToggle";
 import { cn } from "@/lib/utils";
-import { Home, BookOpen, PenLine, LineChart, LogOut } from "lucide-react";
+import { Home, BookOpen, PenLine, LineChart, LogOut, Bot } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavItem {
@@ -21,6 +21,7 @@ const Header: React.FC = () => {
     { label: "New Entry", icon: <PenLine className="h-5 w-5" />, path: "/new-entry" },
     { label: "Journal", icon: <BookOpen className="h-5 w-5" />, path: "/journal" },
     { label: "Analysis", icon: <LineChart className="h-5 w-5" />, path: "/analysis" },
+    { label: "Assistant", icon: <Bot className="h-5 w-5" />, path: "/assistant" },
   ];
 
   return (
