@@ -1,0 +1,63 @@
+
+import React from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Smile, Calendar } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface JournalCardProps {
+  id: string;
+  date: string;
+  title: string;
+  preview: string;
+  mood: string;
+  moodColor: string;
+  className?: string;
+}
+
+const JournalCard: React.FC<JournalCardProps> = ({
+  date,
+  title,
+  preview,
+  mood,
+  moodColor,
+  className,
+}) => {
+  return (
+    <Card className={cn("journal-entry-card", className)}>
+      <CardHeader className="pb-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Calendar className="h-4 w-4" />
+            <span className="text-xs">{date}</span>
+          </div>
+          <Badge 
+            variant="outline" 
+            className={cn(
+              "px-2 py-0 h-6 font-normal", 
+              moodColor === "green" && "bg-journal-green/10 text-journal-green border-journal-green/20",
+              moodColor === "blue" && "bg-journal-blue/10 text-journal-blue border-journal-blue/20",
+              moodColor === "yellow" && "bg-journal-yellow/10 text-journal-yellow border-journal-yellow/30",
+              moodColor === "red" && "bg-journal-red/10 text-journal-red border-journal-red/20",
+              moodColor === "purple" && "bg-journal-purple/10 text-journal-purple border-journal-purple/20"
+            )}
+          >
+            <Smile className="h-3.5 w-3.5 mr-1" />
+            {mood}
+          </Badge>
+        </div>
+        <CardTitle className="text-lg font-medium mt-2">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <CardDescription className="line-clamp-3 text-sm text-muted-foreground">
+          {preview}
+        </CardDescription>
+      </CardContent>
+      <CardFooter className="pt-0 flex justify-end">
+        <span className="text-xs text-muted-foreground">Tap to read</span>
+      </CardFooter>
+    </Card>
+  );
+};
+
+export default JournalCard;
