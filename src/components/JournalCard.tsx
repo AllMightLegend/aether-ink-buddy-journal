@@ -24,7 +24,10 @@ const JournalCard: React.FC<JournalCardProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn("journal-entry-card", className)}>
+    <Card className={cn(
+      "journal-entry-card cursor-pointer group transition-all duration-300 hover:shadow-lg", 
+      className
+    )}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -34,7 +37,7 @@ const JournalCard: React.FC<JournalCardProps> = ({
           <Badge 
             variant="outline" 
             className={cn(
-              "px-2 py-0 h-6 font-normal", 
+              "px-2 py-0 h-6 font-normal transition-colors", 
               moodColor === "green" && "bg-journal-green/10 text-journal-green border-journal-green/20",
               moodColor === "blue" && "bg-journal-blue/10 text-journal-blue border-journal-blue/20",
               moodColor === "yellow" && "bg-journal-yellow/10 text-journal-yellow border-journal-yellow/30",
@@ -46,15 +49,15 @@ const JournalCard: React.FC<JournalCardProps> = ({
             {mood}
           </Badge>
         </div>
-        <CardTitle className="text-lg font-medium mt-2">{title}</CardTitle>
+        <CardTitle className="text-lg font-medium mt-2 transition-colors group-hover:text-primary">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <CardDescription className="line-clamp-3 text-sm text-muted-foreground">
+        <CardDescription className="line-clamp-3 text-sm text-muted-foreground group-hover:text-foreground/90 transition-colors">
           {preview}
         </CardDescription>
       </CardContent>
       <CardFooter className="pt-0 flex justify-end">
-        <span className="text-xs text-muted-foreground">Tap to read</span>
+        <span className="text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">Read more</span>
       </CardFooter>
     </Card>
   );
