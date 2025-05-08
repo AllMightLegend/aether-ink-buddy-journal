@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tag, Briefcase, Heart, Glasses, Utensils, DumbBell, BookOpen, Home, User, Plus } from "lucide-react";
+import { Tag, Briefcase, Heart, Glasses, Utensils, Dumbbell, BookOpen, Home, User, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CategoryProps {
@@ -36,7 +36,7 @@ const EntryCategories = () => {
     { icon: <Heart className="h-5 w-5" />, name: "Personal", color: "journal-purple", count: 18 },
     { icon: <Glasses className="h-5 w-5" />, name: "Learning", color: "journal-yellow", count: 7 },
     { icon: <Utensils className="h-5 w-5" />, name: "Health", color: "journal-green", count: 9 },
-    { icon: <DumbBell className="h-5 w-5" />, name: "Fitness", color: "journal-orange", count: 5 },
+    { icon: <Dumbbell className="h-5 w-5" />, name: "Fitness", color: "journal-orange", count: 5 },
     { icon: <BookOpen className="h-5 w-5" />, name: "Reading", color: "journal-indigo", count: 3 },
     { icon: <Home className="h-5 w-5" />, name: "Home", color: "journal-red", count: 4 },
     { icon: <Plus className="h-5 w-5" />, name: "Add New", color: "primary", count: 0 },

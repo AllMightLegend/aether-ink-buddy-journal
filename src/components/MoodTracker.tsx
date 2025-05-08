@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Smile, Heart, Frown, Meh, Star } from "lucide-react";
@@ -21,6 +22,7 @@ interface MoodOption {
 }
 
 const MoodTracker: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [moodStreak, setMoodStreak] = useState(3); // Example streak count
   
