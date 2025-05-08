@@ -36,9 +36,10 @@ const FloatingActionButton = () => {
               <Button
                 onClick={handleNewEntry}
                 size="icon"
-                className="rounded-full w-12 h-12 bg-primary/90 hover:bg-primary shadow-lg transition-all duration-300 hover:scale-105 animate-scale-in"
+                className="rounded-full w-12 h-12 bg-primary/90 hover:bg-primary shadow-lg transition-all duration-300 hover:scale-105 animate-scale-in relative overflow-hidden"
                 style={{ animationDelay: '0.1s' }}
               >
+                <div className="absolute inset-0 bg-white opacity-0 hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
                 <PenLine className="h-5 w-5" />
                 <span className="sr-only">New Entry</span>
               </Button>
@@ -51,9 +52,10 @@ const FloatingActionButton = () => {
               <Button
                 onClick={handleAskAI}
                 size="icon" 
-                className="rounded-full w-12 h-12 bg-journal-purple/90 hover:bg-journal-purple shadow-lg transition-all duration-300 hover:scale-105 animate-scale-in"
+                className="rounded-full w-12 h-12 bg-journal-purple/90 hover:bg-journal-purple shadow-lg transition-all duration-300 hover:scale-105 animate-scale-in relative overflow-hidden"
                 style={{ animationDelay: '0.2s' }}
               >
+                <div className="absolute inset-0 bg-white opacity-0 hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
                 <MessageCircleQuestion className="h-5 w-5" />
                 <span className="sr-only">Ask AI</span>
               </Button>
@@ -64,14 +66,20 @@ const FloatingActionButton = () => {
       <Button
         onClick={toggleExpand}
         size="icon"
-        className={`rounded-full w-14 h-14 bg-primary shadow-lg transition-all duration-500 hover:scale-105 ${expanded ? 'rotate-45' : ''} relative`}
+        className={`rounded-full w-14 h-14 bg-primary shadow-lg transition-all duration-500 hover:scale-105 ${expanded ? 'rotate-45' : ''} relative overflow-hidden`}
       >
+        <div className="absolute inset-0 bg-white opacity-0 hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
         <Plus className="h-6 w-6" />
         <span className="sr-only">More actions</span>
         {!expanded && (
           <span className="absolute -top-1 -right-1 w-4 h-4 bg-journal-purple rounded-full animate-pulse"></span>
         )}
         <div className="absolute inset-0 rounded-full bg-primary opacity-30 animate-ping" style={{ animationDuration: '3s' }}></div>
+        
+        {/* Ripple effect on click */}
+        <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }}>
+          <circle cx="50%" cy="50%" r="10" fill="rgba(255,255,255,0.3)" className="animate-ping" style={{ animationDelay: '0.5s', animationDuration: '1s' }}></circle>
+        </svg>
       </Button>
     </div>
   );

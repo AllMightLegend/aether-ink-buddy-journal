@@ -14,13 +14,17 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ userName, onNewEntry }) =
   // Get current time to personalize greeting
   const currentHour = new Date().getHours();
   let greeting = "Good day";
+  let timeIcon;
   
   if (currentHour < 12) {
     greeting = "Good morning";
+    timeIcon = "morning";
   } else if (currentHour < 18) {
     greeting = "Good afternoon";
+    timeIcon = "afternoon";
   } else {
     greeting = "Good evening";
+    timeIcon = "evening";
   }
   
   // Generate a random prompt
@@ -37,10 +41,25 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ userName, onNewEntry }) =
   const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
 
   return (
-    <Card className="border-0 shadow-none bg-gradient-to-r from-primary/10 via-primary/5 to-transparent overflow-hidden">
-      <CardContent className="p-6">
+    <Card className="border-0 shadow-none bg-gradient-to-r from-primary/10 via-primary/5 to-transparent overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-full h-full overflow-hidden opacity-10">
+        <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-primary/10 animate-pulse-gentle" style={{animationDuration: "15s"}}></div>
+        <div className="absolute right-20 bottom-10 w-32 h-32 rounded-full bg-primary/10 animate-float" style={{animationDelay: "2s", animationDuration: "10s"}}></div>
+      </div>
+      <CardContent className="p-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-2">
+          <div className="space-y-2 relative">
+            <div className="absolute -top-1 -left-3 opacity-30">
+              {timeIcon === "morning" && (
+                <AnimatedSVG type="morning" className="w-10 h-10" />
+              )}
+              {timeIcon === "afternoon" && (
+                <AnimatedSVG type="afternoon" className="w-10 h-10" />
+              )}
+              {timeIcon === "evening" && (
+                <AnimatedSVG type="evening" className="w-10 h-10" />
+              )}
+            </div>
             <p className="text-lg font-medium text-muted-foreground animate-fade-in">
               {greeting},
             </p>
@@ -48,7 +67,7 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ userName, onNewEntry }) =
               {userName} <span className="inline-block animate-pulse-gentle">👋</span>
             </h1>
             <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm rounded-lg p-3 mt-4 border border-border animate-fade-in" style={{animationDelay: "0.2s"}}>
-              <Lightbulb className="h-5 w-5 text-primary" />
+              <Lightbulb className="h-5 w-5 text-primary animate-pulse-gentle" />
               <p className="text-sm text-muted-foreground">
                 <span className="font-medium text-foreground">Today's prompt:</span> {randomPrompt}
               </p>
@@ -59,11 +78,12 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ userName, onNewEntry }) =
             <AnimatedSVG type="journal" className="hidden md:block" />
             <Button 
               onClick={onNewEntry} 
-              className="group animate-fade-in hover:shadow-md transition-all duration-300"
+              className="group animate-fade-in hover:shadow-md transition-all duration-300 relative overflow-hidden"
               style={{animationDelay: "0.3s"}}
             >
-              Start Writing
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <span className="relative z-10">Start Writing</span>
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 relative z-10" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-white transition-opacity duration-300 z-0"></div>
             </Button>
           </div>
         </div>

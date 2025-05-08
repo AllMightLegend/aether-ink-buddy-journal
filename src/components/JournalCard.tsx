@@ -31,6 +31,9 @@ const JournalCard: React.FC<JournalCardProps> = ({
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-20 h-20 -rotate-45 transform translate-x-10 -translate-y-10 bg-gradient-to-br from-transparent to-primary/5 rounded-full"></div>
       
+      {/* Paper texture overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent to-background/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -52,7 +55,10 @@ const JournalCard: React.FC<JournalCardProps> = ({
             {mood}
           </Badge>
         </div>
-        <CardTitle className="text-lg font-medium mt-2 transition-colors group-hover:text-primary">{title}</CardTitle>
+        <CardTitle className="text-lg font-medium mt-2 transition-colors group-hover:text-primary relative">
+          {title}
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-500"></span>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription className="line-clamp-3 text-sm text-muted-foreground group-hover:text-foreground/90 transition-all duration-300">
@@ -63,9 +69,10 @@ const JournalCard: React.FC<JournalCardProps> = ({
         <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">Read more</span>
       </CardFooter>
       
-      {/* Corner fold effect */}
-      <div className="absolute bottom-0 right-0 w-8 h-8 bg-background transition-all duration-300 group-hover:bg-primary/5 origin-bottom-right">
-        <div className="absolute top-0 left-0 w-8 h-8 bg-card rounded-tl-lg transform rotate-180"></div>
+      {/* Corner fold effect with enhanced animation */}
+      <div className="absolute bottom-0 right-0 w-8 h-8 transition-all duration-300 group-hover:w-10 group-hover:h-10 origin-bottom-right">
+        <div className="absolute top-0 left-0 w-0 h-0 border-b-8 border-r-8 border-b-primary/20 border-r-transparent group-hover:border-b-12 group-hover:border-r-12 transition-all duration-300"></div>
+        <div className="absolute bottom-0 right-0 w-8 h-8 bg-card rounded-tl-lg transform rotate-180"></div>
       </div>
     </Card>
   );
