@@ -119,6 +119,31 @@
   .card-gradient {
     @apply bg-gradient-to-br from-background to-muted/50;
   }
+  
+  /* New component classes */
+  .glass-effect {
+    @apply backdrop-blur-sm bg-white/10 border border-white/20;
+  }
+  
+  .pill-badge {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .icon-container {
+    @apply flex items-center justify-center h-8 w-8 rounded-full;
+  }
+  
+  .soft-shadow {
+    @apply shadow-[0_4px_12px_-2px_rgba(0,0,0,0.1)];
+  }
+  
+  .text-link {
+    @apply text-primary hover:underline transition-all;
+  }
+  
+  .frosted-card {
+    @apply bg-white/70 dark:bg-gray-800/60 backdrop-blur-md border border-white/30 dark:border-gray-700/30;
+  }
 }
 
 @layer utilities {
@@ -150,6 +175,36 @@
   
   .animate-ping {
     animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  
+  /* New animation utilities */
+  .animate-bounce-gentle {
+    animation: bounceGentle 3s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-rotate {
+    animation: rotate 10s linear infinite;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2.5s linear infinite;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background-size: 200% 100%;
+  }
+  
+  .animate-type {
+    overflow: hidden;
+    border-right: 0.15em solid;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+  
+  .animate-entrance {
+    animation: entrance 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 }
 
@@ -227,6 +282,67 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* New animations */
+@keyframes bounceGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px -5px currentColor;
+  }
+  to {
+    box-shadow: 0 0 15px 2px currentColor;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: currentColor }
+}
+
+@keyframes entrance {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 

@@ -1,8 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import JournalCard from './JournalCard';
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Filter, ArrowUpDown } from "lucide-react";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
 
 const recentJournalEntries = [
   {
@@ -32,17 +41,65 @@ const recentJournalEntries = [
 ];
 
 const RecentEntries: React.FC = () => {
+  const [entriesView, setEntriesView] = useState<'grid' | 'compact'>('grid');
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Recent Entries</h2>
-        <Button variant="ghost" size="sm" className="gap-1">
-          View All
-          <ArrowRight className="ml-1 h-4 w-4" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="h-8 px-2">
+                <Filter className="h-4 w-4 mr-1" />
+                Filter
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  All entries
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  This week
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  This month
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  Newest first
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  Oldest first
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-8 w-8" 
+            onClick={() => setEntriesView(entriesView === 'grid' ? 'compact' : 'grid')}
+          >
+            <ArrowUpDown className="h-4 w-4" />
+          </Button>
+          
+          <Button variant="ghost" size="sm" className="gap-1">
+            View All
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className={`grid ${entriesView === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'grid-cols-1 gap-2'}`}>
         {recentJournalEntries.map(entry => (
           <JournalCard
             key={entry.id}
@@ -52,6 +109,7 @@ const RecentEntries: React.FC = () => {
             preview={entry.preview}
             mood={entry.mood}
             moodColor={entry.moodColor}
+            className={entriesView === 'compact' ? 'p-2' : ''}
           />
         ))}
       </div>

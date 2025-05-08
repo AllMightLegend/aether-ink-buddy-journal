@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Smile, Calendar } from "lucide-react";
+import { Smile, Calendar, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface JournalCardProps {
@@ -65,8 +65,17 @@ const JournalCard: React.FC<JournalCardProps> = ({
           {preview}
         </CardDescription>
       </CardContent>
-      <CardFooter className="pt-0 flex justify-end">
-        <span className="text-xs text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">Read more</span>
+      <CardFooter className="pt-0 flex justify-between items-center">
+        <span className="flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
+          Read more
+          <svg className="ml-1 h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5-5 5" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h13" />
+          </svg>
+        </span>
+        <button className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-primary/80 hover:text-primary">
+          <Bookmark className="h-4 w-4" />
+        </button>
       </CardFooter>
       
       {/* Corner fold effect with enhanced animation */}

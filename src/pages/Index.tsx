@@ -9,15 +9,31 @@ import ThemeCustomizer from '../components/ThemeCustomizer';
 import MoodTracker from '../components/MoodTracker';
 import FloatingActionButton from '../components/FloatingActionButton';
 import CollapsibleCard from '../components/CollapsibleCard';
+import EntryCategories from '../components/EntryCategories';
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Lightbulb, ArrowRight, CalendarDays } from "lucide-react";
+import { Lightbulb, ArrowRight, CalendarDays, Sparkle } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleNewEntry = () => {
     navigate('/new-entry');
+  };
+
+  const showAIInsight = () => {
+    toast({
+      title: "AI Insight",
+      description: "Based on your recent entries, you tend to feel more optimistic on days when you exercise in the morning.",
+      action: (
+        <a href="/analysis" className="text-primary text-sm hover:underline">
+          View Analysis
+        </a>
+      )
+    });
   };
 
   return (
@@ -53,7 +69,11 @@ const Index = () => {
               </div>
             </CollapsibleCard>
             
-            <MoodTracker />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <MoodTracker />
+              <EntryCategories />
+            </div>
+            
             <RecentEntries />
           </div>
           
@@ -67,9 +87,11 @@ const Index = () => {
                 <ThemeCustomizer />
               </TabsContent>
               <TabsContent value="insights" className="pt-4">
-                <Card className="border p-4 rounded-lg bg-muted/40">
+                <Card className="border p-4 rounded-lg bg-gradient-to-br from-journal-purple/5 to-background">
                   <div className="flex items-start space-x-3">
-                    <Lightbulb className="h-5 w-5 text-journal-yellow mt-0.5" />
+                    <div className="h-8 w-8 rounded-full bg-journal-purple/20 flex items-center justify-center flex-shrink-0">
+                      <Sparkle className="h-4 w-4 text-journal-purple" />
+                    </div>
                     <div>
                       <h3 className="font-medium">AI Insights</h3>
                       <p className="text-sm text-muted-foreground mt-2">
@@ -79,6 +101,23 @@ const Index = () => {
                         <CalendarDays className="h-4 w-4 text-muted-foreground mr-1.5" />
                         <span className="text-xs text-muted-foreground">Based on entries from May 1-7</span>
                       </div>
+                      <button 
+                        className="mt-3 text-xs text-primary flex items-center hover:underline"
+                        onClick={showAIInsight}
+                      >
+                        Get more insights
+                        <ArrowRight className="ml-1 h-3 w-3" />
+                      </button>
+                    </div>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="mt-2">
+                    <h4 className="text-sm font-medium">Top Mentioned Topics</h4>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <div className="text-xs bg-journal-blue/10 text-journal-blue px-2 py-1 rounded-full">work (14)</div>
+                      <div className="text-xs bg-journal-green/10 text-journal-green px-2 py-1 rounded-full">exercise (8)</div>
+                      <div className="text-xs bg-journal-purple/10 text-journal-purple px-2 py-1 rounded-full">family (6)</div>
+                      <div className="text-xs bg-journal-yellow/10 text-journal-yellow px-2 py-1 rounded-full">goals (5)</div>
                     </div>
                   </div>
                 </Card>
@@ -94,15 +133,58 @@ const Index = () => {
                 <div>
                   <h3 className="text-sm font-medium">Average Mood: Positive</h3>
                   <div className="w-full bg-muted h-2 rounded-full mt-1.5">
-                    <div className="bg-journal-green h-2 rounded-full" style={{ width: '75%' }}></div>
+                    <div className="bg-journal-green h-2 rounded-full relative" style={{ width: '75%' }}>
+                      <div className="absolute -right-1 -top-2 h-6 w-1 bg-journal-green rounded-full" />
+                    </div>
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                    <span>Negative</span>
+                    <span>Positive</span>
                   </div>
                 </div>
+                <Separator className="my-2" />
                 <div>
                   <h3 className="text-sm font-medium">Most Productive Day</h3>
-                  <p className="text-xs text-muted-foreground">Wednesday with 2 entries</p>
+                  <div className="grid grid-cols-7 gap-1 mt-2">
+                    {['M','T','W','T','F','S','S'].map((day, i) => (
+                      <div 
+                        key={day + i} 
+                        className={`h-8 rounded flex items-center justify-center text-xs
+                          ${i === 2 ? 'bg-primary/20 text-primary font-medium' : 'bg-muted/50 text-muted-foreground'}
+                        `}
+                      >
+                        {day}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">Wednesday with 2 entries</p>
                 </div>
               </div>
             </CollapsibleCard>
+            
+            <div className="bg-gradient-to-br from-journal-yellow/10 to-journal-orange/5 p-4 rounded-lg border border-journal-yellow/20 animate-pulse-gentle" style={{animationDuration: "10s"}}>
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-full bg-journal-yellow/20 flex items-center justify-center flex-shrink-0">
+                  <Lightbulb className="h-4 w-4 text-journal-yellow" />
+                </div>
+                <h3 className="font-medium">Journal streak challenge</h3>
+              </div>
+              <p className="text-sm text-muted-foreground mt-2">
+                Write an entry for 7 consecutive days to earn your first streak badge!
+              </p>
+              <div className="flex justify-between mt-3 items-center">
+                <div className="text-xs">5/7 days</div>
+                <button 
+                  onClick={handleNewEntry}
+                  className="text-xs bg-journal-yellow/20 hover:bg-journal-yellow/30 text-journal-yellow px-3 py-1 rounded-full transition-colors"
+                >
+                  Write today
+                </button>
+              </div>
+              <div className="w-full bg-white/30 h-2 rounded-full mt-2">
+                <div className="bg-journal-yellow h-2 rounded-full" style={{ width: '71%' }}></div>
+              </div>
+            </div>
           </div>
         </div>
       </main>

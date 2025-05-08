@@ -2,8 +2,14 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Lightbulb } from "lucide-react";
+import { ArrowRight, Lightbulb, CalendarDays, TrendingUp } from "lucide-react";
 import AnimatedSVG from './AnimatedSVG';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface WelcomeBannerProps {
   userName: string;
@@ -60,17 +66,40 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ userName, onNewEntry }) =
                 <AnimatedSVG type="evening" className="w-10 h-10" />
               )}
             </div>
-            <p className="text-lg font-medium text-muted-foreground animate-fade-in">
-              {greeting},
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-lg font-medium text-muted-foreground animate-fade-in">
+                {greeting},
+              </p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="flex items-center gap-1 bg-journal-green/10 px-2 py-0.5 rounded-full text-xs text-journal-green">
+                      <TrendingUp className="h-3 w-3" />
+                      <span>5 day streak</span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>You've written in your journal for 5 days in a row!</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
             <h1 className="text-3xl font-bold text-foreground animate-fade-in" style={{animationDelay: "0.1s"}}>
               {userName} <span className="inline-block animate-pulse-gentle">👋</span>
             </h1>
-            <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm rounded-lg p-3 mt-4 border border-border animate-fade-in" style={{animationDelay: "0.2s"}}>
-              <Lightbulb className="h-5 w-5 text-primary animate-pulse-gentle" />
-              <p className="text-sm text-muted-foreground">
-                <span className="font-medium text-foreground">Today's prompt:</span> {randomPrompt}
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mt-4 animate-fade-in" style={{animationDelay: "0.2s"}}>
+              <div className="flex items-center gap-2 bg-background/80 backdrop-blur-sm rounded-lg p-3 border border-border flex-grow">
+                <Lightbulb className="h-5 w-5 text-primary animate-pulse-gentle" />
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">Today's prompt:</span> {randomPrompt}
+                </p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-3 border border-border/50">
+                <div className="flex items-center gap-2 text-sm">
+                  <CalendarDays className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-muted-foreground">{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+              </div>
             </div>
           </div>
           

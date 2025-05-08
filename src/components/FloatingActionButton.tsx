@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Plus, PenLine, MessageCircleQuestion } from "lucide-react";
+import { Plus, PenLine, MessageCircleQuestion, X, Bell, BookOpen } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 
@@ -21,6 +21,19 @@ const FloatingActionButton = () => {
 
   const handleAskAI = () => {
     navigate('/assistant');
+    setExpanded(false);
+  };
+
+  const handleJournal = () => {
+    navigate('/journal');
+    setExpanded(false);
+  };
+
+  const showNotification = () => {
+    toast({
+      title: "Daily Reminder",
+      description: "Don't forget to write about your day!",
+    });
     setExpanded(false);
   };
 
@@ -60,16 +73,48 @@ const FloatingActionButton = () => {
                 <span className="sr-only">Ask AI</span>
               </Button>
             </div>
+            
+            <div className="flex items-center gap-2">
+              <span className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 rounded-md shadow-sm opacity-0 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
+                Journal View
+              </span>
+              <Button
+                onClick={handleJournal}
+                size="icon" 
+                className="rounded-full w-12 h-12 bg-journal-green/90 hover:bg-journal-green shadow-lg transition-all duration-300 hover:scale-105 animate-scale-in relative overflow-hidden"
+                style={{ animationDelay: '0.3s' }}
+              >
+                <div className="absolute inset-0 bg-white opacity-0 hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
+                <BookOpen className="h-5 w-5" />
+                <span className="sr-only">Journal</span>
+              </Button>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 rounded-md shadow-sm opacity-0 animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
+                Reminder
+              </span>
+              <Button
+                onClick={showNotification}
+                size="icon" 
+                className="rounded-full w-12 h-12 bg-journal-yellow/90 hover:bg-journal-yellow shadow-lg transition-all duration-300 hover:scale-105 animate-scale-in relative overflow-hidden"
+                style={{ animationDelay: '0.4s' }}
+              >
+                <div className="absolute inset-0 bg-white opacity-0 hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
+                <Bell className="h-5 w-5" />
+                <span className="sr-only">Reminder</span>
+              </Button>
+            </div>
           </div>
         </>
       )}
       <Button
         onClick={toggleExpand}
         size="icon"
-        className={`rounded-full w-14 h-14 bg-primary shadow-lg transition-all duration-500 hover:scale-105 ${expanded ? 'rotate-45' : ''} relative overflow-hidden`}
+        className={`rounded-full w-14 h-14 ${expanded ? 'bg-destructive' : 'bg-primary'} shadow-lg transition-all duration-500 hover:scale-105 ${expanded ? 'rotate-45' : ''} relative overflow-hidden`}
       >
         <div className="absolute inset-0 bg-white opacity-0 hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
-        <Plus className="h-6 w-6" />
+        {expanded ? <X className="h-6 w-6" /> : <Plus className="h-6 w-6" />}
         <span className="sr-only">More actions</span>
         {!expanded && (
           <span className="absolute -top-1 -right-1 w-4 h-4 bg-journal-purple rounded-full animate-pulse"></span>
